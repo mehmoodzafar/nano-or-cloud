@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nano or Cloud?</title>
+  <meta name="description" content="Test your AI prompt on Gemini Nano in Chrome and on Gemini in the cloud, side by side. Get graded results and the Firebase AI Logic mode to ship." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='11' cy='16' r='8' fill='%230f7b4d'/><circle cx='21' cy='16' r='8' fill='%232457c5' fill-opacity='.85'/></svg>" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-in">
+      <div class="brand"><span class="dot dev"></span><span class="dot cloud"></span> Nano or Cloud?</div>
+      <div class="pills">
+        <span class="pill" id="nanoPill" title="Gemini Nano in this browser">Nano: checking</span>
+        <span class="pill" id="cloudPill" title="Gemini in the cloud via Firebase AI Logic">Cloud: checking</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Is Gemini Nano good enough for <em>your</em> prompt?</h1>
+      <p>Run the same task on-device and in the cloud, side by side. A cloud grader scores Nano's answers. You get the Firebase AI Logic inference mode to ship, and the code to copy.</p>
+    </section>
+
+    <section class="card setup" id="setup" hidden>
+      <h2>Turn on Gemini Nano</h2>
+      <p id="setupMsg"></p>
+      <ol id="setupSteps" class="steps"></ol>
+      <div class="row">
+        <button id="dlBtn" class="btn">Download Gemini Nano</button>
+        <div class="bar" id="dlBar" hidden><div id="dlFill"></div></div>
+        <span id="dlPct" class="muted"></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="step-h"><span class="num">1</span><h2>Your task</h2></div>
+      <div class="chips" id="chips"></div>
+      <p class="muted" id="taskBlurb"></p>
+
+      <label class="lbl" for="system">System prompt</label>
+      <textarea id="system" rows="4" placeholder="What should the model do?"></textarea>
+
+      <details id="schemaBox">
+        <summary>JSON schema for structured output (optional)</summary>
+        <textarea id="schema" rows="8" spellcheck="false" placeholder='{"type":"object","properties":{...}}'></textarea>
+        <div class="err" id="schemaErr"></div>
+      </details>
+
+      <div class="inputs-h">
+        <span class="lbl">Test inputs</span>
+        <span class="row gap">
+          <button id="draftBtn" class="btn ghost small" title="Uses PREFER_ON_DEVICE">Draft 3 inputs for me</button>
+          <button id="addBtn" class="btn ghost small">+ Add input</button>
+        </span>
+      </div>
+      <div id="draftNote" class="note" hidden></div>
+      <div id="inputs" class="inputs"></div>
+
+      <div class="needs">
+        <label><input type="checkbox" id="needPrivacy" /> This data must never leave the device</label>
+        <label><input type="checkbox" id="needOffline" /> The feature must work offline</label>
+      </div>
+
+      <button id="runBtn" class="btn big">Run on Nano and Cloud</button>
+      <div id="runStatus" class="muted"></div>
+    </section>
+
+    <section class="card" id="resultsCard" hidden>
+      <div class="step-h"><span class="num">2</span><h2>Side by side</h2></div>
+      <div id="results"></div>
+    </section>
+
+    <section class="card" id="verdictCard" hidden>
+      <div class="step-h"><span class="num">3</span><h2>What to ship</h2></div>
+      <div class="verdict">
+        <div class="mode" id="vMode"></div>
+        <div class="stats" id="vStats"></div>
+        <ul id="vWhy"></ul>
+      </div>
+      <div id="fixBox" hidden>
+        <button id="fixBtn" class="btn" title="Uses PREFER_IN_CLOUD">Fix my prompt for Nano</button>
+        <div id="fixOut" hidden>
+          <div class="note" id="fixNote"></div>
+          <textarea id="fixPrompt" rows="6"></textarea>
+          <button id="applyBtn" class="btn">Use this prompt and run again</button>
+        </div>
+      </div>
+      <div class="code-h"><span class="lbl">Code to copy</span><button id="copyBtn" class="btn ghost small">Copy</button></div>
+      <pre class="code" id="vCode"></pre>
+    </section>
+
+    <footer class="foot muted">
+      Built with Firebase AI Logic hybrid inference (Gemini Nano in Chrome + Gemini in the cloud), App Check and Firebase Hosting.
+      Your inputs go only to Nano on this device and to Gemini through Firebase. Nothing is stored.
+      <a href="https://github.com/mehmoodzafarfreelancing-ai/nano-or-cloud" target="_blank" rel="noopener">Source (Apache-2.0)</a>
+    </footer>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
