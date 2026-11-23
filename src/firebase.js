@@ -2,7 +2,7 @@
 // The web config below is public by design (it identifies the project, it is not a secret).
 // App Check is what stops other sites from using this project's AI quota.
 import { initializeApp } from 'firebase/app';
-import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 import { getAI, GoogleAIBackend } from 'firebase/ai';
 
 const firebaseConfig = {
@@ -21,14 +21,14 @@ export const app = initializeApp(cloudConfigured ? firebaseConfig : { apiKey: 'n
 
 // On localhost, App Check uses a debug token (printed in the console the first time;
 // register it in Firebase console > App Check > Manage debug tokens).
-// On the hosted site, App Check uses reCAPTCHA v3.
+// On the hosted site, App Check uses Fraud Defense (reCAPTCHA Enterprise). Classic v3 is deprecated and locked in the console (23 Nov 2026).
 const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
 if (isLocal) {
   self.FIREBASE_APPCHECK_DEBUG_TOKEN = import.meta.env.VITE_APPCHECK_DEBUG_TOKEN || true;
 }
 
 export const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider(import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'missing-site-key'),
+  provider: new ReCaptchaEnterpriseProvider(import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'missing-site-key'),
   isTokenAutoRefreshEnabled: true,
 });
 
